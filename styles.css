@@ -24,6 +24,9 @@
   --green:           #10b981;
   --green-dark:      #065f46;
   --green-light:     #ecfdf5;
+  --amber:           #f59e0b;
+  --amber-dark:      #92400e;
+  --amber-light:     #fffbeb;
 
   /* Layout */
   --sidebar-w:   265px;
@@ -288,6 +291,12 @@ body {
   background: var(--green-light);
   color: var(--green-dark);
   box-shadow: 0 0 0 1px var(--green);
+}
+
+.status-badge.wip {
+  background: var(--amber-light);
+  color: var(--amber-dark);
+  box-shadow: 0 0 0 1px var(--amber);
 }
 
 /* ════════════════════════════════════════════
