@@ -12,6 +12,12 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Botón de menú (solo móvil) + overlay -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir o cerrar el menú" aria-controls="sidebar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <div class="app-wrapper">
 
     <!-- ═══════════════════════════════════════
@@ -262,6 +268,21 @@
         sidebarNav.style.display = 'none';
         sidebarNavPractica.style.display = 'block';
       });
+
+      // ── Menú móvil: abrir / cerrar ──
+      const sb  = document.getElementById('sidebar');
+      const mBtn = document.getElementById('mobileMenuBtn');
+      const ov  = document.getElementById('sidebarOverlay');
+      const closeNav = () => { sb.classList.remove('open'); ov.classList.remove('show'); document.body.classList.remove('nav-open'); };
+      const openNav  = () => { sb.classList.add('open'); ov.classList.add('show'); document.body.classList.add('nav-open'); };
+      if (mBtn) mBtn.addEventListener('click', () => sb.classList.contains('open') ? closeNav() : openNav());
+      if (ov) ov.addEventListener('click', closeNav);
+      // Cerrar el panel en móvil al elegir un algoritmo o práctica
+      [sidebarNav, sidebarNavPractica].forEach(nav => {
+        if (nav) nav.addEventListener('click', e => { if (e.target.closest('.nav-item')) closeNav(); });
+      });
+      const wc = document.getElementById('welcomeCategories');
+      if (wc) wc.addEventListener('click', closeNav);
     });
   </script>
   <script src="algoritmos_data.js"></script>

@@ -12,6 +12,12 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Botón de menú (solo móvil) + overlay -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir o cerrar el menú" aria-controls="sidebar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <div class="app-wrapper">
 
     <!-- ═══════════════════════════════════════
@@ -150,6 +156,23 @@
     </main>
   </div><!-- /app-wrapper -->
 
+  <!-- Menú móvil: abrir / cerrar -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sb  = document.getElementById('sidebar');
+      const btn = document.getElementById('mobileMenuBtn');
+      const ov  = document.getElementById('sidebarOverlay');
+      const open  = () => { sb.classList.add('open'); ov.classList.add('show'); document.body.classList.add('nav-open'); };
+      const close = () => { sb.classList.remove('open'); ov.classList.remove('show'); document.body.classList.remove('nav-open'); };
+      btn.addEventListener('click', () => sb.classList.contains('open') ? close() : open());
+      ov.addEventListener('click', close);
+      // Al elegir una estructura en el menú, cerrar el panel en móvil
+      document.getElementById('sidebarNav').addEventListener('click', e => { if (e.target.closest('.nav-item')) close(); });
+      // Al elegir una tarjeta de la bienvenida, cerrar también
+      const wc = document.getElementById('welcomeCategories');
+      if (wc) wc.addEventListener('click', () => close());
+    });
+  </script>
   <script src="estructuras_data.js"></script>
   <script src="script.js"></script>
 
