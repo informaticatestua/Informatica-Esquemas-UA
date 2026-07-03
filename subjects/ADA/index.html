@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Visualizador interactivo de algoritmos — Análisis y Diseño de Algoritmos">
+  <meta name="theme-color" content="#0f172a">
+  <title>AlgoVisual — Visualizador de Algoritmos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-wrapper">
+
+    <!-- ═══════════════════════════════════════
+         SIDEBAR
+    ═══════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <a class="brand-logo" href="../../index.html" title="Volver a la página principal" style="text-decoration:none;color:inherit;cursor:pointer">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+            <rect width="30" height="30" rx="9" fill="url(#brandGrad)"/>
+            <circle cx="15" cy="8" r="3.5" fill="white" />
+            <circle cx="8" cy="20" r="3.5" fill="white" />
+            <circle cx="22" cy="20" r="3.5" fill="white" />
+            <path d="M13 10.5L9.5 17" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M17 10.5L20.5 17" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="30" y2="30">
+                <stop offset="0%" stop-color="#60a5fa"/>
+                <stop offset="100%" stop-color="#7c3aed"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div>
+            <span class="brand-name">ADA</span>
+            <span class="brand-sub">Análisis de Algoritmos</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="sidebar-switcher">
+        <button class="switch-btn active" id="btnTeoria">Teoría</button>
+        <button class="switch-btn" id="btnPractica">Práctica</button>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav" aria-label="Algoritmos Teoría">
+        <!-- Generado dinámicamente por script.js -->
+      </nav>
+
+      <nav class="sidebar-nav" id="sidebarNavPractica" aria-label="Prácticas" style="display:none;">
+        <!-- Generado dinámicamente por script.js -->
+      </nav>
+    </aside>
+
+    <!-- ═══════════════════════════════════════
+         CONTENIDO PRINCIPAL
+    ═══════════════════════════════════════ -->
+    <main class="main-content" id="mainContent">
+      
+      <div id="teoriaWrapper">
+        <!-- Pantalla de bienvenida -->
+        <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-hero">
+          <div class="welcome-badge">Asignatura: Análisis y Diseño de Algoritmos</div>
+          <h1>Visualizador Interactivo<br>de Algoritmos</h1>
+          <p>Aprende paso a paso cómo funcionan los algoritmos más importantes de la asignatura. Selecciona cualquier algoritmo del menú lateral para comenzar la visualización interactiva.</p>
+          <div class="welcome-stats">
+            <div class="stat-card">
+              <span class="stat-number" id="totalAlgos">13</span>
+              <span class="stat-label">Algoritmos</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" id="totalCats">6</span>
+              <span class="stat-label">Categorías</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Pasos</span>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-categories" id="welcomeCategories">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+
+      <!-- Vista del algoritmo -->
+      <div class="algo-view" id="algoView" style="display:none">
+
+        <!-- Breadcrumb + Badges -->
+        <div class="algo-topbar">
+          <div class="algo-breadcrumb" aria-label="Navegación">
+            <span class="breadcrumb-category" id="bcCategory"></span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            <span class="breadcrumb-algo" id="bcAlgo"></span>
+          </div>
+          <div class="complexity-badges" id="complexityBadges" aria-label="Complejidad"></div>
+        </div>
+
+        <!-- Tarjeta de información -->
+        <section class="info-card" id="infoCard" aria-label="Información del algoritmo"></section>
+
+        <!-- Contenedor del visualizador -->
+        <section class="visualizer-container" aria-label="Visualizador interactivo">
+          <div class="visualizer-header">
+            <span class="visualizer-title">Visualización Interactiva</span>
+            <span class="step-counter" id="stepCounter" aria-live="polite">Paso 0 / 0</span>
+          </div>
+
+          <!-- Canvas de visualización -->
+          <div class="visualizer-canvas" id="visualizerCanvas" aria-live="polite"></div>
+
+          <!-- Explicación del paso actual -->
+          <div class="step-explanation">
+            <span class="explanation-icon" aria-hidden="true">💡</span>
+            <p id="stepText">Presiona <strong>Siguiente</strong> o <strong>Reproducir</strong> para comenzar la visualización.</p>
+          </div>
+
+          <!-- Barra de controles -->
+          <div class="controls-bar">
+            <div class="controls-left">
+              <button class="ctrl-btn ctrl-icon" id="btnReset" title="Reiniciar visualización" aria-label="Reiniciar">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+            </div>
+
+            <div class="controls-center">
+              <button class="ctrl-btn ctrl-secondary" id="btnPrev" disabled aria-label="Paso anterior">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                Anterior
+              </button>
+              <button class="ctrl-btn ctrl-primary" id="btnPlayPause" aria-label="Reproducir o pausar">
+                <svg id="playIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+                <svg id="pauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                <span id="playLabel">Reproducir</span>
+              </button>
+              <button class="ctrl-btn ctrl-secondary" id="btnNext" aria-label="Siguiente paso">
+                Siguiente
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+
+            <div class="controls-right">
+              <div class="speed-control">
+                <span class="speed-label">Vel.</span>
+                <input type="range" id="speedSlider" min="1" max="5" value="3" class="speed-slider" aria-label="Velocidad de reproducción">
+                <span class="speed-value" id="speedValue">3×</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /algo-view -->
+      </div><!-- /teoriaWrapper -->
+
+      <div id="practicaWrapper" style="display:none; width: 100%; height: 100%;">
+        <div class="welcome-screen" id="welcomePractica">
+          <div class="welcome-hero">
+            <div class="welcome-badge">Prácticas Interactivas</div>
+            <h1>Laboratorio de ADA</h1>
+            <p>El mismo laberinto resuelto con cinco técnicas distintas — fuerza bruta, memoización, backtracking, voraz y ramificación y poda — para ver en vivo sus diferencias. Y el clásico Bubble Sort paso a paso.</p>
+            <div class="welcome-stats">
+              <div class="stat-card">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Técnicas de laberinto</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Prácticas</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Pasos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="algo-view" id="practicaView" style="display:none">
+          <div class="algo-topbar">
+            <div class="algo-breadcrumb">
+              <span class="breadcrumb-category" id="bcPracticaCat"></span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="breadcrumb-algo" id="bcPracticaTitle"></span>
+            </div>
+            <div class="complexity-badges" id="practicaBadges"></div>
+          </div>
+
+          <section class="info-card" id="practicaInfo"></section>
+
+          <section class="visualizer-container" id="practicaVisualizerContainer">
+            <div class="visualizer-header">
+              <span class="visualizer-title">Laboratorio Interactivo</span>
+              <span class="step-counter" id="practicaStepCounter"></span>
+            </div>
+            <div class="visualizer-canvas" id="practicaCanvas" style="padding: 10px;"></div>
+            
+            <div class="controls-bar" id="practicaControls" style="border-top:1px solid #f1f5f9;">
+              <div class="controls-left">
+                <button class="ctrl-btn ctrl-icon" id="pBtnReset" title="Reiniciar visualización" aria-label="Reiniciar">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                </button>
+              </div>
+
+              <div class="controls-center">
+                <button class="ctrl-btn ctrl-secondary" id="pBtnPrev" disabled aria-label="Paso anterior">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                  Anterior
+                </button>
+                <button class="ctrl-btn ctrl-primary" id="pBtnPlayPause" aria-label="Reproducir o pausar">
+                  <svg id="pPlayIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+                  <svg id="pPauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                  <span id="pPlayLabel">Reproducir</span>
+                </button>
+                <button class="ctrl-btn ctrl-secondary" id="pBtnNext" aria-label="Siguiente paso">
+                  Siguiente
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+
+              <div class="controls-right">
+                <div class="speed-control">
+                  <span class="speed-label">Vel.</span>
+                  <input type="range" id="pSpeedSlider" min="1" max="5" value="3" class="speed-slider" aria-label="Velocidad de reproducción">
+                  <span class="speed-value" id="pSpeedValue">3×</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /app-wrapper -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnTeoria = document.getElementById('btnTeoria');
+      const btnPractica = document.getElementById('btnPractica');
+      const teoriaWrapper = document.getElementById('teoriaWrapper');
+      const practicaWrapper = document.getElementById('practicaWrapper');
+      const sidebarNav = document.getElementById('sidebarNav');
+      const sidebarNavPractica = document.getElementById('sidebarNavPractica');
+
+      btnTeoria.addEventListener('click', () => {
+        btnTeoria.classList.add('active');
+        btnPractica.classList.remove('active');
+        teoriaWrapper.style.display = 'block';
+        practicaWrapper.style.display = 'none';
+        sidebarNav.style.display = 'block';
+        sidebarNavPractica.style.display = 'none';
+      });
+
+      btnPractica.addEventListener('click', () => {
+        btnPractica.classList.add('active');
+        btnTeoria.classList.remove('active');
+        practicaWrapper.style.display = 'block';
+        teoriaWrapper.style.display = 'none';
+        sidebarNav.style.display = 'none';
+        sidebarNavPractica.style.display = 'block';
+      });
+    });
+  </script>
+  <script src="algoritmos_data.js"></script>
+  <script src="practicas_data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

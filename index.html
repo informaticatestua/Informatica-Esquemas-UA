@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esquemas UA</title>
+  <meta name="description" content="Workspace de Ingeniería Informática - Índice Minimalista">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- Paso 1: Selección de curso (Sidebar) -->
+    <aside class="sidebar">
+      <div class="brand">
+        Esquemas UA
+      </div>
+      
+      <div class="course-nav-title">Cursos Disponibles</div>
+      <nav class="course-nav">
+        <button class="course-tab" data-target="curso-1">1º Curso</button>
+        <button class="course-tab active" data-target="curso-2">2º Curso</button>
+      </nav>
+    </aside>
+
+    <!-- Paso 2: Listado de asignaturas (Content) -->
+    <main class="content">
+      <div class="content-inner">
+        <div class="header">
+          <h1>Índice de Asignaturas</h1>
+          <p>Selecciona un módulo para acceder a sus recursos y visualizadores interactivos.</p>
+        </div>
+        
+        <div id="curso-1" class="subject-list hidden">
+          <div class="semester-title">Semestre 1</div>
+          <a href="#" class="subject-item muted" onclick="showToast(event)">
+            <div class="subject-info">
+              <span class="subject-code">M1</span>
+              <span class="subject-name">Matemáticas 1</span>
+            </div>
+            <span class="status-badge">Próximamente</span>
+          </a>
+        </div>
+
+        <div id="curso-2" class="subject-list">
+          <div class="semester-title">Semestre 3</div>
+          <a href="#" class="subject-item muted" onclick="showToast(event)">
+            <div class="subject-info">
+              <span class="subject-code">SO</span>
+              <span class="subject-name">Sistemas Operativos</span>
+            </div>
+            <span class="status-badge">Próximamente</span>
+          </a>
+          <a href="#" class="subject-item muted" onclick="showToast(event)">
+            <div class="subject-info">
+              <span class="subject-code">RC</span>
+              <span class="subject-name">Redes de Computadores</span>
+            </div>
+            <span class="status-badge">Próximamente</span>
+          </a>
+
+          <div class="semester-title">Semestre 4</div>
+          <a href="#" class="subject-item muted" onclick="showToast(event)">
+            <div class="subject-info">
+              <span class="subject-code">PED</span>
+              <span class="subject-name">Programación y Estructura de Datos</span>
+            </div>
+            <span class="status-badge">Próximamente</span>
+          </a>
+          <a href="subjects/ADA/index.html" class="subject-item active">
+            <div class="subject-info">
+              <span class="subject-code">ADA</span>
+              <span class="subject-name">Análisis y Diseño de Algoritmos</span>
+            </div>
+            <span class="status-badge ready">Disponible</span>
+          </a>
+          <a href="#" class="subject-item muted" onclick="showToast(event)">
+            <div class="subject-info">
+              <span class="subject-code">AC</span>
+              <span class="subject-name">Arquitectura de los Computadores</span>
+            </div>
+            <span class="status-badge">Próximamente</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <div id="toast" class="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+    Contenido no disponible actualmente
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
