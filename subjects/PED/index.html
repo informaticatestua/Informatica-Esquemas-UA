@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Visualizador interactivo de estructuras de datos — Programación y Estructuras de Datos">
+  <meta name="theme-color" content="#0f172a">
+  <title>PED — Visualizador de Estructuras de Datos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-wrapper">
+
+    <!-- ═══════════════════════════════════════
+         SIDEBAR
+    ═══════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <a class="brand-logo" href="../../index.html" title="Volver a la página principal" style="text-decoration:none;color:inherit;cursor:pointer">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+            <rect width="30" height="30" rx="9" fill="url(#brandGrad)"/>
+            <circle cx="15" cy="7" r="3" fill="white" />
+            <circle cx="8" cy="16" r="3" fill="white" />
+            <circle cx="22" cy="16" r="3" fill="white" />
+            <circle cx="8" cy="24" r="2.4" fill="white" />
+            <path d="M14 9.5L9 14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M16 9.5L21 14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M8 18.5L8 22" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="30" y2="30">
+                <stop offset="0%" stop-color="#34d399"/>
+                <stop offset="100%" stop-color="#2563eb"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div>
+            <span class="brand-name">PED</span>
+            <span class="brand-sub">Estructuras de Datos</span>
+          </div>
+        </a>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav" aria-label="Estructuras de datos">
+        <!-- Generado dinámicamente por script.js -->
+      </nav>
+    </aside>
+
+    <!-- ═══════════════════════════════════════
+         CONTENIDO PRINCIPAL
+    ═══════════════════════════════════════ -->
+    <main class="main-content" id="mainContent">
+
+      <!-- Pantalla de bienvenida -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-hero">
+          <div class="welcome-badge">Asignatura: Programación y Estructuras de Datos</div>
+          <h1>Visualizador Interactivo<br>de Estructuras de Datos</h1>
+          <p>Aprende paso a paso cómo funcionan los árboles (ABB, AVL, 2-3, 2-3-4), las tablas hash, los montículos y colas de prioridad (heap y DEAP) y los grafos de la asignatura. Selecciona cualquier estructura del menú lateral para comenzar la visualización interactiva.</p>
+          <div class="welcome-stats">
+            <div class="stat-card">
+              <span class="stat-number" id="totalAlgos">19</span>
+              <span class="stat-label">Visualizadores</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number" id="totalCats">5</span>
+              <span class="stat-label">Categorías</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">∞</span>
+              <span class="stat-label">Pasos</span>
+            </div>
+          </div>
+        </div>
+        <div class="welcome-categories" id="welcomeCategories">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+
+      <!-- Vista del visualizador -->
+      <div class="algo-view" id="algoView" style="display:none">
+
+        <!-- Breadcrumb + Badges -->
+        <div class="algo-topbar">
+          <div class="algo-breadcrumb" aria-label="Navegación">
+            <span class="breadcrumb-category" id="bcCategory"></span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            <span class="breadcrumb-algo" id="bcAlgo"></span>
+          </div>
+          <div class="complexity-badges" id="complexityBadges" aria-label="Complejidad"></div>
+        </div>
+
+        <!-- Tarjeta de información -->
+        <section class="info-card" id="infoCard" aria-label="Información de la estructura"></section>
+
+        <!-- Contenedor del visualizador -->
+        <section class="visualizer-container" aria-label="Visualizador interactivo">
+          <div class="visualizer-header">
+            <span class="visualizer-title">Visualización Interactiva</span>
+            <span class="step-counter" id="stepCounter" aria-live="polite">Paso 0 / 0</span>
+          </div>
+
+          <!-- Canvas de visualización -->
+          <div class="visualizer-canvas" id="visualizerCanvas" aria-live="polite"></div>
+
+          <!-- Explicación del paso actual -->
+          <div class="step-explanation">
+            <span class="explanation-icon" aria-hidden="true">💡</span>
+            <p id="stepText">Presiona <strong>Siguiente</strong> o <strong>Reproducir</strong> para comenzar la visualización.</p>
+          </div>
+
+          <!-- Barra de controles -->
+          <div class="controls-bar">
+            <div class="controls-left">
+              <button class="ctrl-btn ctrl-icon" id="btnReset" title="Reiniciar visualización" aria-label="Reiniciar">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              </button>
+            </div>
+
+            <div class="controls-center">
+              <button class="ctrl-btn ctrl-secondary" id="btnPrev" disabled aria-label="Paso anterior">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+                Anterior
+              </button>
+              <button class="ctrl-btn ctrl-primary" id="btnPlayPause" aria-label="Reproducir o pausar">
+                <svg id="playIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+                <svg id="pauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                <span id="playLabel">Reproducir</span>
+              </button>
+              <button class="ctrl-btn ctrl-secondary" id="btnNext" aria-label="Siguiente paso">
+                Siguiente
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+
+            <div class="controls-right">
+              <div class="speed-control">
+                <span class="speed-label">Vel.</span>
+                <input type="range" id="speedSlider" min="1" max="5" value="3" class="speed-slider" aria-label="Velocidad de reproducción">
+                <span class="speed-value" id="speedValue">3×</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /algo-view -->
+
+    </main>
+  </div><!-- /app-wrapper -->
+
+  <script src="estructuras_data.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
