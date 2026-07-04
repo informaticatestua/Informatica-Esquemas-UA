@@ -8,7 +8,7 @@
 <br/>
 <br/>
 
-<h1>🧩 UniCode · Informatica Esquemas UA</h1>
+<h1>🧩 Informatica Esquemas UA</h1>
 
 <p align="center">
   <strong>Hub de esquemas, apuntes y visualizadores interactivos para el grado de Ingeniería Informática de la Universidad de Alicante.</strong><br/>
@@ -44,7 +44,7 @@
 
 ## 🎯 Acerca del Proyecto
 
-**UniCode / Informatica Esquemas UA** es un sitio web **100% estático** que centraliza esquemas, apuntes y *visualizadores interactivos* de las asignaturas del grado de Ingeniería Informática de la EPS (UA).
+**Informatica Esquemas UA** es un sitio web **100% estático** que centraliza esquemas, apuntes y *visualizadores interactivos* de las asignaturas del grado de Ingeniería Informática de la EPS (UA).
 
 Funciona como un **hub**: una página índice lista las asignaturas por curso y semestre, y cada asignatura disponible enlaza a su propia mini-aplicación dentro de `subjects/`. El corazón de cada app es un **motor de reproducción genérico** que anima algoritmos y estructuras de datos **paso a paso**, permitiendo avanzar, retroceder, pausar y ajustar la velocidad para entender cada estado del cómputo.
 
