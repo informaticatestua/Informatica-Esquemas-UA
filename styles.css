@@ -28,9 +28,6 @@
   --amber-dark:      #92400e;
   --amber-light:     #fffbeb;
 
-  /* Bordes / superficies neutras */
-  --border-c:    #e2e8f0;
-
   /* Layout */
   --sidebar-w:   265px;
   --radius-sm:   8px;
@@ -330,65 +327,6 @@ body {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
 }
-
-/* ════════════════════════════════════════════
-   BOTÓN DE CAMBIO DE TEMA (barra superior)
-════════════════════════════════════════════ */
-.theme-toggle {
-  position: fixed;
-  top: 16px;
-  right: 20px;
-  z-index: 1500;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-white);
-  color: var(--txt-secondary);
-  border: 1px solid var(--border-c);
-  box-shadow: var(--shadow-sm);
-  cursor: pointer;
-  transition: color var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
-}
-.theme-toggle:hover {
-  color: var(--blue);
-  border-color: var(--blue);
-  transform: translateY(-1px);
-}
-.theme-toggle svg { width: 19px; height: 19px; }
-.theme-toggle .icon-sun { display: none; }
-:root[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
-:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-
-/* ════════════════════════════════════════════
-   TEMA OSCURO
-════════════════════════════════════════════ */
-:root[data-theme="dark"] {
-  --bg-app:        #0a1020;
-  --bg-white:      #121c30;
-  --bg-subtle:     #0f1728;
-  --txt-primary:   #e8eef8;
-  --txt-secondary: #aab7cc;
-  --txt-muted:     #7a879e;
-  --border-c:      #26324c;
-  --blue-light:    rgba(59,130,246,.16);
-  --blue-dark:     #93c5fd;
-  --green-light:   rgba(16,185,129,.16);
-  --green-dark:    #6ee7b7;
-  --amber-light:   rgba(245,158,11,.16);
-  --amber-dark:    #fcd34d;
-  --shadow-xs:     0 1px 3px rgba(0,0,0,.4);
-  --shadow-sm:     0 2px 10px rgba(0,0,0,.5);
-  --shadow-md:     0 8px 28px rgba(0,0,0,.55);
-}
-:root[data-theme="dark"] .semester-title   { border-bottom-color: var(--border-c); }
-:root[data-theme="dark"] .subject-item      { border-color: var(--border-c); }
-:root[data-theme="dark"] .subject-item.muted{ border-color: var(--border-c); }
-:root[data-theme="dark"] .subject-code      { background: var(--border-c); color: var(--txt-secondary); }
-:root[data-theme="dark"] .status-badge      { background: var(--border-c); color: var(--txt-secondary); }
-:root[data-theme="dark"] .status-badge.ready{ background: var(--green-light); color: var(--green-dark); }
 
 /* Responsive */
 @media (max-width: 768px) {
