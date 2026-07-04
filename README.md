@@ -100,7 +100,7 @@ El hub organiza las asignaturas por curso y semestre. Estado actual:
 | `AC` | Arquitectura de los Computadores | 2º · S4 | 🔜 Próximamente |
 | `M1` | Matemáticas 1 | 1º · S1 | 🔜 Próximamente |
 
-### 🔵 ADA — AlgoVisual
+### 🔵 ADA — Algoritmos
 
 Visualizador de algoritmos organizado por técnicas de diseño, con dos modos:
 
