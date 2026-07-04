@@ -47,6 +47,9 @@
   --c-found:     #10b981;
   --c-discard:   #cbd5e1;
 
+  /* Bordes / superficies neutras */
+  --border-c:    #e2e8f0;
+
   /* Layout */
   --sidebar-w:   265px;
   --radius-sm:   8px;
@@ -1219,4 +1222,100 @@ body.nav-open { overflow: hidden; }
   .welcome-hero h1 { font-size: 1.4rem; }
   .heap-box { width: 33px; height: 33px; }
   .heap-arr { gap: 3px; }
+}
+
+/* ════════════════════════════════════════════
+   BOTÓN DE CAMBIO DE TEMA (barra superior)
+════════════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 300;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-white);
+  color: var(--txt-secondary);
+  border: 1px solid var(--border-c);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: color var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.theme-toggle:hover {
+  color: var(--blue);
+  border-color: var(--blue);
+  transform: translateY(-1px);
+}
+.theme-toggle svg { width: 19px; height: 19px; }
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* ════════════════════════════════════════════
+   TEMA OSCURO
+════════════════════════════════════════════ */
+:root[data-theme="dark"] {
+  --bg-app:        #0a1020;
+  --bg-white:      #121c30;
+  --bg-subtle:     #0f1728;
+  --txt-primary:   #e8eef8;
+  --txt-secondary: #aab7cc;
+  --txt-muted:     #7a879e;
+  --border-c:      #26324c;
+  --blue-light:    rgba(59,130,246,.16);
+  --blue-dark:     #93c5fd;
+  --green-light:   rgba(16,185,129,.16);
+  --green-dark:    #6ee7b7;
+  --amber-light:   rgba(245,158,11,.16);
+  --purple-light:  rgba(139,92,246,.16);
+  --red-light:     rgba(239,68,68,.16);
+  --shadow-xs:     0 1px 3px rgba(0,0,0,.4);
+  --shadow-sm:     0 2px 10px rgba(0,0,0,.5);
+  --shadow-md:     0 8px 28px rgba(0,0,0,.55);
+  --shadow-lg:     0 14px 44px rgba(0,0,0,.6);
+}
+/* Bordes de las tarjetas y paneles de "chrome" */
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .welcome-cat-card,
+:root[data-theme="dark"] .info-card,
+:root[data-theme="dark"] .visualizer-container { border-color: var(--border-c); }
+:root[data-theme="dark"] .info-detail          { border-color: var(--border-c); }
+:root[data-theme="dark"] .visualizer-header    { border-bottom-color: var(--border-c); }
+/* Botones de control secundarios */
+:root[data-theme="dark"] .ctrl-icon,
+:root[data-theme="dark"] .ctrl-secondary       { background: #1e293b; color: var(--txt-secondary); }
+:root[data-theme="dark"] .ctrl-icon:hover:not(:disabled),
+:root[data-theme="dark"] .ctrl-secondary:hover:not(:disabled) { background: #26324c; color: var(--txt-primary); }
+/* Banda de explicación */
+:root[data-theme="dark"] .step-explanation {
+  background: linear-gradient(135deg, #101d33 0%, #0d1728 100%);
+  border-color: #1c2b45;
+}
+/* Insignia y título degradado de la bienvenida */
+:root[data-theme="dark"] .welcome-badge {
+  background: linear-gradient(135deg, #12233d, #10261f);
+  border-color: #26324c;
+  color: #93c5fd;
+}
+:root[data-theme="dark"] .welcome-hero h1 {
+  background: linear-gradient(140deg, #e8eef8 30%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+/* El lienzo del visualizador se mantiene como "isla clara":
+   las figuras de las estructuras asumen fondo claro y texto oscuro. */
+:root[data-theme="dark"] .visualizer-canvas {
+  background: #f4f7fb;
+  --txt-primary:   #0f172a;
+  --txt-secondary: #475569;
+  --txt-muted:     #94a3b8;
+  --bg-white:      #ffffff;
+  --bg-subtle:     #f8fafc;
+  --border-c:      #e2e8f0;
+  --blue-dark:     #1d4ed8;
+  --green-dark:    #065f46;
 }
